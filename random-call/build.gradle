@@ -79,7 +79,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'com.github.Moddakir-App'
-                artifactId = 'moddakir-sdk'
+                artifactId = 'moddakir-sdk-android'
                 version = '1.0'
             }
         }

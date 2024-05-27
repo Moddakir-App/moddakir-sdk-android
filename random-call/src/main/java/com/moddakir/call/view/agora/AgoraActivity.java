@@ -16,11 +16,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -28,14 +26,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.gson.Gson;
 import com.moddakir.call.API.ApiManager;
 import com.moddakir.call.Adapters.ConnectingScreenAdapter;
@@ -64,7 +60,6 @@ import com.moddakir.call.R;
 import com.moddakir.call.utils.AccountPreference;
 import com.moddakir.call.utils.Perference;
 import com.moddakir.call.view.evaluation.TeacherEvaluationActivity;
-
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,7 +69,6 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.agora.rtc2.ChannelMediaOptions;
@@ -111,7 +105,8 @@ public class AgoraActivity extends MainCallScreen
     private static final String[] REQUESTED_PERMISSIONS = {Manifest.permission.RECORD_AUDIO};
     String channelName = "", isVideo = "false", token = "", LOG_TAG = "AgoraActivity";
     private RecyclerView bannersRV;
-    int postion=0;
+    Handler handler;
+    Runnable myRunnable;
     String gender, name, phone, email, language;
     Boolean IsConnectRTC = false, isVisible = false, isReachingTheTeacher = false, isHangupByStudent = false, isShowBandMessage = false, isJoined = false, TeacherJoin = false, handlerStopped = false, ismute = false, saveRetryCounts = false, TeacherConnected = false, isspeaker = false, isShowed = false, isEndCallByUser = false;
     CreateCallResponseModel RTCData = null;
@@ -724,7 +719,8 @@ public class AgoraActivity extends MainCallScreen
                 onServiceDisconnected(false);
             }
             else {
-
+                requestUpdateCall("CANCELED");
+                onServiceDisconnected(false);
             }
             return;
         }
@@ -1248,7 +1244,9 @@ public class AgoraActivity extends MainCallScreen
         HashMap<String, Object> map = new HashMap<>();
         map.put("gender", gender);
         map.put("fullName", name);
-        // map.put("phone", phone);
+        if(!phone.isEmpty()){
+            map.put("phone", phone);
+        }
         map.put("email", email);
         (new ApiManager(AgoraActivity.this).getUserCalls(false)).loginToSdk(map)
                 .subscribeOn(Schedulers.io()) // “work” on io thread

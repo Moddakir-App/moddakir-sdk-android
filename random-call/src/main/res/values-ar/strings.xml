@@ -45,5 +45,6 @@
     <string name="valid_email">الرجاء إدخال بريد الكترونى صالح</string>
     <string name="no_teachers">نعتذر عن عدم وجود معلمين الان برجاء المحاولة لاحقا</string>
     <string name="valid_phone">الرجاء إدخال رقم هاتف صالح</string>
+    <string name="please_contact_moddakir_support">يرجى الاتصال بـ Moddakir Support للحصول على AppKey و AppAccess</string>
 
 </resources>

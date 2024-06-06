@@ -67,8 +67,8 @@ public class ApiManager {
                 Request.Builder requestBuilder = original.newBuilder();
                 requestBuilder.header("Accept-Language", Perference.getLang(context));
                 requestBuilder.header("Content-Type", "application/json");
-                requestBuilder.header("x-api-key", Constants.apikey);
-                requestBuilder.header("appName", "wl_4");
+                requestBuilder.header("x-api-key", Constants.getApikey());
+                requestBuilder.header("appName",  Constants.getAppKey());
 
                 if (IsAuth) {
                     if (token != null && token.length > 0)

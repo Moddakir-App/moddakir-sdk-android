@@ -76,7 +76,6 @@ import io.agora.rtc2.Constants;
 import io.agora.rtc2.IRtcEngineEventHandler;
 import io.agora.rtc2.RtcEngine;
 import io.agora.rtc2.RtcEngineConfig;
-import io.agora.rtc2.video.VideoCanvas;
 import io.agora.rtm.ErrorInfo;
 import io.agora.rtm.ResultCallback;
 import io.agora.rtm.RtmChannel;
@@ -105,8 +104,7 @@ public class AgoraActivity extends MainCallScreen
     private static final String[] REQUESTED_PERMISSIONS = {Manifest.permission.RECORD_AUDIO};
     String channelName = "", isVideo = "false", token = "", LOG_TAG = "AgoraActivity";
     private RecyclerView bannersRV;
-    Handler handler;
-    Runnable myRunnable;
+    PlayGifView warning,like;
     String gender, name, phone, email, language;
     Boolean IsConnectRTC = false, isVisible = false, isReachingTheTeacher = false, isHangupByStudent = false, isShowBandMessage = false, isJoined = false, TeacherJoin = false, handlerStopped = false, ismute = false, saveRetryCounts = false, TeacherConnected = false, isspeaker = false, isShowed = false, isEndCallByUser = false;
     CreateCallResponseModel RTCData = null;
@@ -188,14 +186,14 @@ public class AgoraActivity extends MainCallScreen
 
         @Override
         public void onConnectionInterrupted() {
-            showCallInterruptedMessage(R.string.call_interrupted_message_teacher);
+          //  showCallInterruptedMessage(R.string.call_interrupted_message_teacher);
             super.onConnectionInterrupted();
         }
 
         @Override
         public void onConnectionLost() {
             super.onConnectionLost();
-            SendMsg("ConnectionLost");
+            //SendMsg("ConnectionLost");
         }
 
         @Override
@@ -509,6 +507,8 @@ public class AgoraActivity extends MainCallScreen
 
         mAudioPlayer = new AudioPlayer(this);
         mCallDuration = findViewById(R.id.tv_duration);
+        warning = findViewById(R.id.warm_iv);
+        like = findViewById(R.id.likebutton);
         mCallerName1 = findViewById(R.id.remoteUser1);
         btnEndCall = findViewById(R.id.iv_decline);
         hang_up = findViewById(R.id.hang_up);
@@ -539,6 +539,9 @@ public class AgoraActivity extends MainCallScreen
             btnMute.setOnClickListener(this);
             btnSpeaker.setOnClickListener(this);
         });
+        warning.setImageResource(R.drawable.warning);
+        like.setImageResource(R.drawable.like);
+
 
     }
 
@@ -975,17 +978,6 @@ public class AgoraActivity extends MainCallScreen
     }
 
 
-    private void setupRemoteVideo(int uid) {
-        FrameLayout container = findViewById(R.id.v_remote_video);
-        remoteSurfaceView = new SurfaceView(getBaseContext());
-        remoteSurfaceView.setZOrderMediaOverlay(true);
-        container.addView(remoteSurfaceView);
-        agoraEngine.setupRemoteVideo(new VideoCanvas(remoteSurfaceView, VideoCanvas.RENDER_MODE_FIT, uid));
-        remoteSurfaceView.setVisibility(View.VISIBLE);
-        remoteSurfaceView.setVisibility(View.GONE);
-
-    }
-
     private void setupVideoSDKEngine(String callApiKey) {
         try {
             RtcEngineConfig config = new RtcEngineConfig();
@@ -1121,17 +1113,13 @@ public class AgoraActivity extends MainCallScreen
                     TeacherConnected = true;
                     status = STATUS.RING;
                     RingDurationCountDown();
-                } else if (text.equals("openShareScreen")) {
-
-                } else if (text.equals("ConnectRTC")) {
+                }  else if (text.equals("ConnectRTC")) {
                     setupVideoSDKEngine(RTCData.getCallApiKey());
                     connectToRTC();
                     if (startTeacherNotAvailable != null) {
                         startTeacherNotAvailable.cancel();
                     }
-
-
-                } else if (text.equals("CallCancelled")) {
+                } else if (text.equals("CancelledCall")) {
                     getRandomTeacher();
                 } else if (text.equals("ConnectionLost")) {
                     tv_internet_status.setVisibility(View.VISIBLE);
@@ -1167,6 +1155,9 @@ public class AgoraActivity extends MainCallScreen
                         if (callDurationSeconds != 0) {
                             backToHomePage();
                             finish();
+                        }
+                        else {
+                            getRandomTeacher();
                         }
 
                     }
@@ -1331,10 +1322,15 @@ public class AgoraActivity extends MainCallScreen
                 });
     }
 
-    public static void makeCall(Context context, String gender, String name, String phone, String email, String language) {
+    public static void makeCall(String AppKey ,String AppAccess,Context context, String gender, String name, String phone, String email, String language) {
         Boolean validEmail=false;
         gender = gender.toLowerCase();
         language = language.toLowerCase();
+        com.moddakir.call.Constants.setApikey(AppAccess);
+        com.moddakir.call.Constants.setAppKey(AppKey);
+        if (AppKey.isEmpty()||AppAccess.isEmpty()) {
+            Toast.makeText(context, context.getString(R.string.please_contact_moddakir_support), Toast.LENGTH_LONG).show();
+        }
         if (email != null)
         {
             if(android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){

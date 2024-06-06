@@ -19,11 +19,13 @@
     <ImageView
         android:layout_width="wrap_content"
         android:src="@drawable/quran_txt_ic"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"/>
     <FrameLayout
         android:id="@+id/warning_frame"
         android:layout_width="match_parent"
+        android:paddingBottom="@dimen/_100sdp"
         android:layout_height="match_parent"
         android:background="@color/transparent">
 
@@ -34,22 +36,21 @@
             android:visibility="gone"
             tools:visibility="visible">
 
-            <ImageView
+            <com.moddakir.call.view.widget.PlayGifView
                 android:id="@+id/likebutton"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/clapping" />
+                android:layout_gravity="center"/>
 
             <com.moddakir.call.view.widget.TextViewCalibriBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/likebutton"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="5dp"
                 android:text="@string/sendScuc_text"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="15dp" />
         </RelativeLayout>
 
 
@@ -60,22 +61,21 @@
             android:visibility="gone"
             tools:visibility="visible">
 
-            <ImageView
+            <com.moddakir.call.view.widget.PlayGifView
                 android:id="@+id/warm_iv"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/warning_1" />
+                android:layout_gravity="center"/>
 
             <com.moddakir.call.view.widget.TextViewCalibriBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/warm_iv"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="5dp"
                 android:text="@string/sendError_text"
-                android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textColor="@color/darkYellow"
+                android:textSize="15dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -140,8 +140,8 @@
 
             <ImageButton
                 android:id="@+id/iv_speaker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/btn_speaker_oncall" />
@@ -172,8 +172,8 @@
 
             <ImageButton
                 android:id="@+id/iv_mute"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/btn_mute_oncall" />

@@ -41,7 +41,7 @@
     <string name="cancel">Cancel</string>
     <string name="valid_gender">please enter valid gender</string>
     <string name="name_req">Name is required</string>
-    <string name="please_contact_moddakir_support">please contact Moddakir support to get your AppKey and AppAccess</string>
+    <string name="please_contact_moddakir_support">please contact Moddakir support to get your AppID &amp; AppKey</string>
     <string name="email_req">Email is required</string>
     <string name="valid_language">please enter valid language</string>
     <string name="valid_phone">please enter valid phone</string>

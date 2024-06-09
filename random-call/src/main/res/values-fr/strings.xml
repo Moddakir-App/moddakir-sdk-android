@@ -46,5 +46,5 @@
     <string name="valid_email">please enter valid email</string>
     <string name="valid_phone">please enter valid phone</string>
     <string name="no_teachers">We apologize for the lack of teachers now, please try later</string>
-    <string name="please_contact_moddakir_support">please contact Moddakir support to get your AppKey and AppAccess</string>
+    <string name="please_contact_moddakir_support">please contact Moddakir support to get your  AppID &amp; AppKey </string>
 </resources>

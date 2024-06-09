@@ -1322,13 +1322,13 @@ public class AgoraActivity extends MainCallScreen
                 });
     }
 
-    public static void makeCall(String AppKey ,String AppAccess,Context context, String gender, String name, String phone, String email, String language) {
+    public static void makeCall(String AppID  ,String AppKey,Context context, String gender, String name, String phone, String email, String language) {
         Boolean validEmail=false;
         gender = gender.toLowerCase();
         language = language.toLowerCase();
-        com.moddakir.call.Constants.setApikey(AppAccess);
-        com.moddakir.call.Constants.setAppKey(AppKey);
-        if (AppKey.isEmpty()||AppAccess.isEmpty()) {
+        com.moddakir.call.Constants.setAppID(AppID);
+        com.moddakir.call.Constants.setAppKey(AppKey );
+        if (AppID.isEmpty()||AppKey.isEmpty()) {
             Toast.makeText(context, context.getString(R.string.please_contact_moddakir_support), Toast.LENGTH_LONG).show();
         }
         if (email != null)

@@ -67,8 +67,8 @@ public class ApiManager {
                 Request.Builder requestBuilder = original.newBuilder();
                 requestBuilder.header("Accept-Language", Perference.getLang(context));
                 requestBuilder.header("Content-Type", "application/json");
-                requestBuilder.header("x-api-key", Constants.getApikey());
-                requestBuilder.header("appName",  Constants.getAppKey());
+                requestBuilder.header("x-api-key", Constants.getAppKey());
+                requestBuilder.header("appName",  Constants.getAppID());
 
                 if (IsAuth) {
                     if (token != null && token.length > 0)
@@ -86,9 +86,6 @@ public class ApiManager {
                 Response response = chain.proceed(request);
                 if (response.code() == 401 || response.code() == 403) {
                     clearData(context);
-                   /* Intent intent = new Intent(context, AgoraActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    context.startActivity(intent);*/
                 }
                 return response;
             });
